@@ -1,0 +1,9 @@
+/lib
+/node_modules
+
+.env.*
+.env
+.DS_Store
+
+tsconfig.json
+tsup.config.ts

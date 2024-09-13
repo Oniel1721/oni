@@ -1,0 +1,28 @@
+{
+  "name": "@oni/validator",
+  "version": "0.0.1",
+  "description": "Data validation library",
+  "keywords": [
+    "data",
+    "validation",
+    "library"
+  ],
+  "author": "Oniel1721",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "directories": {
+    "dist": "dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "tsup": "^8.2.4",
+    "typescript": "^5.6.2"
+  }
+}
