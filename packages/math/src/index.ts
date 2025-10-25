@@ -2,30 +2,6 @@ export function decimals(n: number) {
   return (n.toString().split(".")[1] || "").length;
 }
 
-function _operate(
-  a: number,
-  b: number,
-  operation: "+" | "-" | "*" | "/"
-): number {
-  const f = 10 ** Math.max(decimals(a), decimals(b));
-  let result: number;
-  switch (operation) {
-    case "-":
-      result = (Math.round(a * f) - Math.round(b * f)) / f;
-      break;
-    case "+":
-      result = (Math.round(a * f) + Math.round(b * f)) / f;
-      break;
-    case "*":
-      result = (Math.round(a * f) * Math.round(b * f)) / f;
-      break;
-    case "/":
-      result = Math.round(a * f) / Math.round(b * f) / f;
-      break;
-  }
-  return result;
-}
-
 export function even(n: number) {
   return n % 2 === 0;
 }
@@ -70,6 +46,48 @@ export function max(...numbers: number[]) {
   return numbers.reduce((a, n) => (n > a ? n : a), numbers[0]);
 }
 
+export function ceil(n: number) {
+  const result = int(n);
+  const add = decimals(n) ? 1 : 0;
+  return result + add;
+}
+
+export function floor(n: number) {
+  return int(n);
+}
+
+export function round(n: number, precision: number = 3) {
+  return Number(n.toPrecision(precision));
+}
+
+export function int(v: string | number) {
+  return parseInt(typeof v === "string" ? v : String(v), 10);
+}
+
+function _operate(
+  a: number,
+  b: number,
+  operation: "+" | "-" | "*" | "/"
+): number {
+  const f = 10 ** max(decimals(a), decimals(b));
+  let result: number;
+  switch (operation) {
+    case "-":
+      result = (round(a * f) - round(b * f)) / f;
+      break;
+    case "+":
+      result = (round(a * f) + round(b * f)) / f;
+      break;
+    case "*":
+      result = (round(a * f) * round(b * f)) / f;
+      break;
+    case "/":
+      result = round(a * f) / round(b * f) / f;
+      break;
+  }
+  return result;
+}
+
 export function add(...numbers: number[]) {
   const [a, ...ns] = numbers;
   return ns.reduce((a, n) => _operate(a, n, "+"), a);
@@ -90,23 +108,30 @@ export function div(...numbers: number[]) {
   return ns.reduce((a, n) => _operate(a, n, "/"), a);
 }
 
-export function ceil(n: number) {
-  const result = int(n);
-  const add = decimals(n) ? 1 : 0;
-  return result + add;
-}
-
-export function floor(n: number) {
-  return int(n);
-}
-
-export function round(n: number, precision: number = 3) {
-  return Number(n.toPrecision(precision));
-}
-
-export function int(v: string | number) {
-  return parseInt(typeof v === "string" ? v : String(v), 10);
-}
-
 export const PI = 3.141592653589793;
 export const E = 2.718281828459045;
+
+export const math = {
+  decimals,
+  even,
+  odd,
+  mean,
+  median,
+  range,
+  sort,
+  sortDesc,
+  min,
+  max,
+  add,
+  sub,
+  mul,
+  div,
+  floor,
+  ceil,
+  round,
+  int,
+  PI,
+  E,
+};
+
+export default math;

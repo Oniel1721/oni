@@ -1,6 +1,9 @@
 import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
+import { argv } from "bun";
+
+const names = argv.slice(2);
 
 const packagesDir = join(process.cwd(), "packages");
 
@@ -10,6 +13,7 @@ const dirs = readdirSync(packagesDir).filter((f) => {
 });
 
 for (const dir of dirs) {
+  if (names.length && !names.includes(dir)) continue;
   const pkgPath = join(packagesDir, dir);
   console.log(`🚀 Publicando ${dir}...`);
 

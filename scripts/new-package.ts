@@ -19,7 +19,7 @@ const pkg = {
   type: "module",
   files: ["dist"],
   scripts: {
-    build: "tsup ./src/index.ts",
+    build: "tsup ./src/index.ts --dts --format esm",
     test: "bun test",
   },
   publishConfig: {
